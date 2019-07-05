@@ -1,0 +1,4 @@
+/.env
+ngrok/data/authtoken.conf
+.idea/
+nbproject/

@@ -1,0 +1,29 @@
+version: '3'
+
+networks:
+  backend:
+    driver: ${NETWORKS_DRIVER}
+
+volumes:
+  ngrok:
+    driver: ${VOLUMES_DRIVER}
+
+services:
+
+#################### ngrok ################################################
+##运行后执行 docker cp CONTAINER_ID:/ngrok/bin ./ngrok/data/ 以获取客户端##
+    ngrok:
+      build:
+        context: ./ngrok
+        args:
+          - SERVER_DOMAIN=${NGROK_SERVER_DOMAIN}
+      environment:
+        - DOMAIN=${NGROK_SERVER_DOMAIN}
+      ports:
+        - "${NGROK_HTTP_PROT}:80"
+        - "${NGROK_TUNNEL_PROT}:4443"
+      volumes:
+        - ${NGROK_LOG_PATH}:/ngrok/bin/logs/
+        - ${NGROK_AUTHTOKEN_PATH}:/ngrok/bin/authtoken.conf
+      networks:
+        - backend
