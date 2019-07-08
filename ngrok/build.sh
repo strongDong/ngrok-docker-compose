@@ -22,4 +22,4 @@ GOOS=darwin GOARCH=amd64 make release-client
 GOOS=linux GOARCH=arm make release-client
 
 mkdir -p bin/logs/
-touch authtoken.conf
+touch bin/authtoken.conf
